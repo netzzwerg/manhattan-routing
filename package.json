@@ -1,0 +1,10 @@
+{
+  "name": "manhattan-routing",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-connect": "~0.6.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "connect-livereload": "~0.3.2"
+  }
+}
