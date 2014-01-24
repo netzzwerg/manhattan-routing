@@ -40,12 +40,12 @@ module.exports = function(grunt) {
         src: 'src/**/*.js',
         options: {
           vendor: 'lib/snap.svg.js',
-          specs: 'spec/*Spec.js'//,
-          //template : require('grunt-template-jasmine-istanbul'),
-          //templateOptions: {
-            //coverage: 'reports/coverage.json',
-            //report: 'reports/coverage'
-          //}
+          specs: 'spec/*Spec.js',
+          template : require('grunt-template-jasmine-istanbul'),
+          templateOptions: {
+            coverage: 'reports/coverage.json',
+            report: 'reports/coverage'
+          }
         }
       }
     }

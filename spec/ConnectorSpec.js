@@ -1,6 +1,5 @@
 describe("Connector", function() {
-  var boxA, boxB;
-  var paper;
+  var boxA, boxB, paper, ab;
 
   beforeEach(function() {
     paper = new Snap(800,800);
@@ -15,10 +14,44 @@ describe("Connector", function() {
       stroke: "#000",
       strokeWidth: 1
     });
+
+    ab = new Connector(paper,boxA,'right',boxB,'left');
   });
 
-  it("should be true", function() {
-    expect(true).toBeTruthy();
+  describe("The 'getDirection' method", function() {
+
+    it("should return coordinates (0/-1) for direction up", function() {
+      expect(ab.getDirection(100,100,100,50)).toEqual({x:0,y:-1});
+    });
+
+    it("should return coordinates (1/0) for direction right", function() {
+      expect(ab.getDirection(100,100,150,100)).toEqual({x:1,y:0});
+    });
+
+    it("should return coordinates (0/1) for direction down", function() {
+      expect(ab.getDirection(100,100,100,150)).toEqual({x:0,y:1});
+    });
+
+    it("should return coordinates (-1/0) for direction left", function() {
+      expect(ab.getDirection(100,100,50,100)).toEqual({x:-1,y:0});
+    });
+
+    it("should return coordinates (1/-1) for direction up right", function() {
+      expect(ab.getDirection(100,100,150,50)).toEqual({x:1,y:-1});
+    });
+
+    it("should return coordinates (-1/-1) for direction up left", function() {
+      expect(ab.getDirection(100,100,50,50)).toEqual({x:-1,y:-1});
+    });
+
+    it("should return coordinates (1/1) for direction down right", function() {
+      expect(ab.getDirection(100,100,150,150)).toEqual({x:1,y:1});
+    });
+
+    it("should return coordinates (-1/1) for direction down left", function() {
+      expect(ab.getDirection(100,100,50,150)).toEqual({x:-1,y:1});
+    });
+
   });
 
 });
