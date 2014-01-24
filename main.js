@@ -2,12 +2,25 @@
 'use strict';
 	console.log('main');
 
-	var Connector = function(paper, sx,sy,tx,ty) {
+	var Connector = function(paper,a,b,tx,ty) {
 		this.paper = paper;
-		this.draw(sx,sy,tx,ty);
+		this.draw(a,b,tx,ty);
 	};
 
-	Connector.prototype.draw = function(sx,sy,tx,ty) {
+	Connector.prototype.draw = function(a,b,tx,ty) {
+
+		var sx, sy = 0;
+
+		if(_.isObject(a) && _.isObject(b)) {
+			sx = (a.attr('x')*1) + (a.attr('width')*1);
+			sy = (a.attr('y')*1) + (a.attr('height')*1)/2;
+			tx = b.attr('x')*1;
+			ty = (b.attr('y')*1) + (b.attr('height')*1)/2;
+		} else {
+			sx = a;
+			sy = b;
+		}
+
 		this.drawLine(sx,sy,tx,ty);
 		this.drawStartPoint(sx,sy);
 		this.drawEndPoint(tx,ty);
@@ -73,7 +86,7 @@
 		stroke: "#000",
 		strokeWidth: 1
 	});
-
-	var cd = new Connector(paper,150,300,250,400);
+	
+	var cd = new Connector(paper,boxC,boxD);
 
 }(this));
