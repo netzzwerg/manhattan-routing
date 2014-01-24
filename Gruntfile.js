@@ -22,13 +22,32 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      scripts: {
+      reload: {
         files: [ 'main.js' , 'index.html' ],
         tasks: [], // Add more tasks here.
         options: {
           livereload: 35729
-        },
+        }
       },
+      unittest: {
+        files: 'src/**/*.js',
+        tasks: ['jasmine'] // Add more tasks here.
+      }
+    },
+
+    jasmine: {
+      pivotal: {
+        src: 'src/**/*.js',
+        options: {
+          vendor: 'lib/snap.svg.js',
+          specs: 'spec/*Spec.js'//,
+          //template : require('grunt-template-jasmine-istanbul'),
+          //templateOptions: {
+            //coverage: 'reports/coverage.json',
+            //report: 'reports/coverage'
+          //}
+        }
+      }
     }
 
   });
@@ -36,9 +55,11 @@ module.exports = function(grunt) {
   // Load task modules.
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
 
   // Default task.
   grunt.registerTask('default', 'server');
-  grunt.registerTask('server', ['connect', 'watch']);
+  grunt.registerTask('server', ['connect', 'watch:reload']);
+  grunt.registerTask('test', 'watch:unittest');
 
 };

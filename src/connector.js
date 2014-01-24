@@ -8,6 +8,7 @@ this.Connector = (function(global, undefined) {
 		this.direction = this.getDirection();
 
 		this.draw(this.startPoint, this.endPoint);
+		
 	};
 
 	Connector.prototype.draw = function(sp, tp) {
