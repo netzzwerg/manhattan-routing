@@ -43,6 +43,6 @@
 		strokeWidth: 1
 	});
 
-	var ef = new Connector(paper,boxE,'right',boxF,'left');
+	var ef = new Connector(paper,boxE,'left',boxF,'right');
 
 }(this));

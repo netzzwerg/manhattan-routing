@@ -3,14 +3,20 @@ this.Connector = (function(global, undefined) {
 
 	var Connector = function(paper, so, sd, to, td) {
 		this.paper = paper;
-		this.startPoint = this.getStartPoint(so, sd);
-		this.endPoint = this.getEndPoint(to, td);
+		this.startPoint = this.getAnchor(so, sd);
+		this.endPoint = this.getAnchor(to, td);
 		this.direction = this.getDirection();
 
 		this.draw(this.startPoint, this.endPoint);
 		
 	};
 
+	/**
+	 * [draw description]
+	 * @param  {[type]} sp [description]
+	 * @param  {[type]} tp [description]
+	 * @return {[type]}    [description]
+	 */
 	Connector.prototype.draw = function(sp, tp) {
 
 		var sx = sp.x;
@@ -23,46 +29,88 @@ this.Connector = (function(global, undefined) {
 		this.drawEndPoint(tx,ty);
 	};
 
-	Connector.prototype.getStartPoint = function(so, sd) {
-		var box = so.getBBox();
-		return { x:box.x, y:box.y, d:'right' };
+	/**
+	 * [getAnchor description]
+	 * @param  {[type]} element   [description]
+	 * @param  {[type]} direction [description]
+	 * @return {[type]}           [description]
+	 */
+	Connector.prototype.getAnchor = function(element, direction) {
+
+		var x = 0;
+		var y = 0;
+		var sx = element.attr('x') * 1;
+		var sy = element.attr('y') * 1;
+		var sh = element.attr('height') * 1;
+		var sw = element.attr('width') * 1;
+
+		switch (direction) {
+			case 'right':
+				x = sx + sw;
+				y = sy + sh/2;
+			break;
+			case 'up':
+				x = sx + sw/2;
+				y = sy;
+			break;
+			case 'down':
+				x = sx + sw/2;
+				y = sy + sh;
+			break;
+			case 'left':
+				x = sx;
+				y = sy + sh/2;
+			break;
+			default:
+				x = sx + sw;
+				y = sy + sh/2;
+		}
+
+		return { x : x, y : y, d : direction };
 	};
 
-	Connector.prototype.getEndPoint = function(to, td) {
-		var box = to.getBBox();
-		return {x:box.x, y:box.y, d:'right' };
-	};
-
+	/**
+	 * [getDirection description]
+	 * @param  {[type]} sx [description]
+	 * @param  {[type]} sy [description]
+	 * @param  {[type]} tx [description]
+	 * @param  {[type]} ty [description]
+	 * @return {[type]}    [description]
+	 */
 	Connector.prototype.getDirection = function(sx, sy, tx, ty) {
-		// RIGHT 1/ 0
-		// LEFT -1/ 0
-		// UP    0/-1
-		// DOWN  0/ 1
-	
-		var direction = {x:0,y:0};
+
+		var x = 0;
+		var y = 0;
 		var dx = tx - sx;
 		var dy = ty - sy;
 
 		if(dx < 0) {
-			direction.x = -1; // left
+			x = -1; // left
 		} else if (dx > 0) {
-			direction.x = 1;  // right
+			x = 1;  // right
 		} else if (dx === 0) {
-			direction.x = 0;  // center
+			x = 0;  // center
 		}
 
 		if(dy < 0) {
-			direction.y = -1; // up
+			y = -1; // up
 		} else if (dy > 0) {
-			direction.y = 1;  // down
+			y = 1;  // down
 		} else if (dy === 0) {
-			direction.y = 0;  // center
+			y = 0;  // center
 		}
 
-		console.log(direction);
-		return direction;
+		return { x : x, y : y };
 	};
 
+	/**
+	 * [drawLine description]
+	 * @param  {[type]} sx [description]
+	 * @param  {[type]} sy [description]
+	 * @param  {[type]} tx [description]
+	 * @param  {[type]} ty [description]
+	 * @return {[type]}    [description]
+	 */
 	Connector.prototype.drawLine = function(sx, sy, tx, ty) {
 
 		var path = '';
@@ -79,21 +127,38 @@ this.Connector = (function(global, undefined) {
 		}
 
 		this.paper.path(path).attr({
-			fill: "#FFF",
-			stroke: "#000",
+			fill: '#FFF',
+			stroke: '#000',
 			strokeWidth: 1
 		});
 	};
 
+	/**
+	 * [drawStartPoint description]
+	 * @param  {[type]} sx [description]
+	 * @param  {[type]} sy [description]
+	 * @return {[type]}    [description]
+	 */
 	Connector.prototype.drawStartPoint = function(sx, sy) {
-		this.paper.circle(sx, sy, 4);
+
+		var radius = 4;
+
+		this.paper.circle(sx, sy, radius);
 	};
 
+	/**
+	 * [drawEndPoint description]
+	 * @param  {[type]} tx [description]
+	 * @param  {[type]} ty [description]
+	 * @return {[type]}    [description]
+	 */
 	Connector.prototype.drawEndPoint = function(tx, ty) {
+
 		var p = 'M' + tx + ',' + ty;
 			p += 'L' + (tx-10) + ',' + (ty+5);
 			p += 'L' + (tx-10) + ',' + (ty-5);
 			p += 'L' + tx + ',' + ty;
+
 		this.paper.path(p);
 	};
 
