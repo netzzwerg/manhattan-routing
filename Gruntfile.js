@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 
     watch: {
       reload: {
-        files: [ 'main.js' , 'index.html' ],
+        files: [ 'src/Connector.js', 'main.js' , 'index.html' ],
         tasks: [], // Add more tasks here.
         options: {
           livereload: 35729
