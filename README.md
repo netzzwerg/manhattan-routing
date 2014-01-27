@@ -1,5 +1,7 @@
 manhattan-routing
 =================
+[![Build Status](https://travis-ci.org/netzzwerg/manhattan-routing.png)](https://travis-ci.org/netzzwerg/manhattan-routing) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
 #### Simple Manhattan Routing with SVG. ####
 
 Basic Usage
