@@ -1,7 +1,59 @@
 this.Connector = (function(global, undefined) {
 'use strict';
 
-	var Connector = function(paper, so, sd, to, td) {
+	/**
+	 * Connector - Simple Manhattan Routing with SVG.
+	 *
+	 * 
+	 * ![](http://netzzwerg.github.io/manhattan-routing/images/routing-1.svg)
+	 * 
+	 * ```js
+	 * var paper = new Snap(800,600);
+	 * 
+	 * var boxA = paper.rect(50, 50, 100, 100, 2).attr({
+	 *     fill: "#FFF",
+	 *     stroke: "#000",
+	 *     strokeWidth: 1
+	 * });
+	 * 
+	 * var boxB = paper.rect(250, 50, 100, 100, 2).attr({
+	 *     fill: "#FFF",
+	 *     stroke: "#000",
+	 *     strokeWidth: 1
+	 * });
+	 * 
+	 * var ab = new Connector(paper, boxA, 'right', boxB, 'left');
+	 * ```
+	 * 
+	 * ![](http://netzzwerg.github.io/manhattan-routing/images/routing-2.svg)
+	 * 
+	 * ```js
+	 * var paper = new Snap(800,600);
+	 * 
+	 * var boxC = paper.rect(50, 250, 100, 100, 2).attr({
+	 *     fill: "#FFF",
+	 *     stroke: "#000",
+	 *     strokeWidth: 1
+	 * });
+	 * 
+	 * var boxD = paper.rect(250, 350, 100, 100, 2).attr({
+	 *     fill: "#FFF",
+	 *     stroke: "#000",
+	 *     strokeWidth: 1
+	 * });
+	 * 
+	 * var cd = new Connector(paper, boxC, 'left', boxD, 'left');
+	 * ```
+	 * 
+	 * @global
+	 * @constructor
+	 * @param {object} paper - A Snap Instance.
+	 * @param {object} so - Source Point (Snap) Element.
+	 * @param {string} sd - Source Point direction.
+	 * @param {object} to - Target Point (Snap) Element.
+	 * @param {string} td - Target Point direction.
+	 */
+	function Connector(paper, so, sd, to, td) {
 		this.paper = paper;
 		this.sourceObject = so;
 		this.targetObject = to;
@@ -10,13 +62,12 @@ this.Connector = (function(global, undefined) {
 		this.direction = this.getDirection();
 
 		this.draw(this.sourcePoint, this.targetPoint);
-	};
+	}
 
 	/**
-	 * [draw description]
-	 * @param  {[type]} sp [description]
-	 * @param  {[type]} tp [description]
-	 * @return {[type]}    [description]
+	 * @memberOf Connector
+	 * @param {object} sp - Source Point (Snap) Element.
+	 * @param {object} tp - Target Point (Snap) Element.
 	 */
 	Connector.prototype.draw = function(sp, tp) {
 
@@ -31,10 +82,10 @@ this.Connector = (function(global, undefined) {
 	};
 
 	/**
-	 * [getAnchor description]
-	 * @param  {[type]} element   [description]
-	 * @param  {[type]} direction [description]
-	 * @return {[type]}           [description]
+	 * @memberOf Connector
+	 * @param  {object} element   - (Snap) Element
+	 * @param  {string} direction - Anchor Direction (up, right, down, left)
+	 * @return {object}           
 	 */
 	Connector.prototype.getAnchor = function(element, direction) {
 
@@ -70,12 +121,12 @@ this.Connector = (function(global, undefined) {
 	};
 
 	/**
-	 * [getDirection description]
-	 * @param  {[type]} sx [description]
-	 * @param  {[type]} sy [description]
-	 * @param  {[type]} tx [description]
-	 * @param  {[type]} ty [description]
-	 * @return {[type]}    [description]
+	 * @memberOf Connector
+	 * @param {number} sx - Source Point X Coordinate.
+	 * @param {number} sy - Source Point Y Coordinate.
+	 * @param {number} tx - Target Point X Coordinate.
+	 * @param {number} ty - Target Point Y Coordinate.
+	 * @return {object}  
 	 */
 	Connector.prototype.getDirection = function(sx, sy, tx, ty) {
 
@@ -108,51 +159,51 @@ this.Connector = (function(global, undefined) {
 	};
 
 	/**
-	 * [drawLine description]
-	 * @param  {[type]} sx [description]
-	 * @param  {[type]} sy [description]
-	 * @param  {[type]} tx [description]
-	 * @param  {[type]} ty [description]
-	 * @return {[type]}    [description]
+	 * @memberOf Connector
+	 * @param {number} sx - Source Point X Coordinate.
+	 * @param {number} sy - Source Point Y Coordinate.
+	 * @param {number} tx - Target Point X Coordinate.
+	 * @param {number} ty - Target Point Y Coordinate.
 	 */
 	Connector.prototype.drawLine = function(sx, sy, tx, ty) {
 
-		var path = '';
+
+		var pathString = '';
 		var connectionDirection = this.getDirection(sx,sy,tx,ty);
 		var sourcePointDirection = this.sourcePoint.d;
 		var targetPointDirection = this.targetPoint.d;
 		var padding = 30;
 
-		path = 'M' + sx + ',' + sy;
+		pathString = 'M' + sx + ',' + sy;
 
 		// change direction and walk around the source element
 		if(connectionDirection.d.indexOf(sourcePointDirection) === -1) {
 
-			path += 'L' + (sx-padding) + ',' + ty;
-			path += 'L' + (sx-padding) + ',' + (ty+50+padding);
+			pathString += 'L' + (sx-padding) + ',' + ty;
+			pathString += 'L' + (sx-padding) + ',' + (ty+50+padding);
 					
 			// should we walk around the target element?
 			if(connectionDirection.d.indexOf(targetPointDirection) !== -1) {
-				path += 'L' + (tx+padding) + ',' + (ty+50+padding);
-				path += 'L' + (tx+padding) + ',' + ty;
+				pathString += 'L' + (tx+padding) + ',' + (ty+50+padding);
+				pathString += 'L' + (tx+padding) + ',' + ty;
 			} else {
-				path += 'L' + (sx+100+padding) + ',' + (ty+50+padding);
-				path += 'L' + (sx+100+padding) + ',' + (ty);
+				pathString += 'L' + (sx+100+padding) + ',' + (ty+50+padding);
+				pathString += 'L' + (sx+100+padding) + ',' + (ty);
 			}
 
-			path += 'L' + tx + ',' + ty;
+			pathString += 'L' + tx + ',' + ty;
 		}
 
 		if(connectionDirection.y === 0) {
-			path += 'L' + tx + ',' + ty;
+			pathString += 'L' + tx + ',' + ty;
 		} else if (connectionDirection.y === 1) {
 			var dx = tx - sx;
-			path += 'L' + (sx + (dx/2)) + ',' + sy;
-			path += 'L' + (sx + (dx/2)) + ',' + ty;
-			path += 'L' + tx + ',' + ty;
+			pathString += 'L' + (sx + (dx/2)) + ',' + sy;
+			pathString += 'L' + (sx + (dx/2)) + ',' + ty;
+			pathString += 'L' + tx + ',' + ty;
 		}
 
-		this.paper.path(path).attr({
+		this.paper.path(pathString).attr({
 			fill: '#FFF',
 			fillOpacity : 0,
 			stroke: '#000',
@@ -161,10 +212,9 @@ this.Connector = (function(global, undefined) {
 	};
 
 	/**
-	 * [drawSourcePoint description]
-	 * @param  {[type]} sx [description]
-	 * @param  {[type]} sy [description]
-	 * @return {[type]}    [description]
+	 * @memberOf Connector
+	 * @param {number} sx - Point X Coordinate.
+	 * @param {number} sy - Point Y Coordinate.
 	 */
 	Connector.prototype.drawSourcePoint = function(sx, sy) {
 
@@ -174,10 +224,9 @@ this.Connector = (function(global, undefined) {
 	};
 
 	/**
-	 * [drawTargetPoint description]
-	 * @param  {[type]} tx [description]
-	 * @param  {[type]} ty [description]
-	 * @return {[type]}    [description]
+	 * @memberOf Connector
+	 * @param {number} tx - Point X Coordinate.
+	 * @param {number} ty - Point Y Coordinate.
 	 */
 	Connector.prototype.drawTargetPoint = function(tx, ty, direction) {
 		var arrow, a;
