@@ -13,12 +13,13 @@ this.Connector = (function(global, undefined) {
 	 */
 	function Connector(paper, so, sd, to, td) {
 		this.paper = paper;
-		this.startPoint = this.getAnchor(so, sd);
-		this.endPoint = this.getAnchor(to, td);
+		this.sourceObject = so;
+		this.targetObject = to;
+		this.sourcePoint = this.getAnchor(so, sd);
+		this.targetPoint = this.getAnchor(to, td);
 		this.direction = this.getDirection();
 
-		this.draw(this.startPoint, this.endPoint);
-		
+		this.draw(this.sourcePoint, this.targetPoint);
 	}
 
 	/**
@@ -34,8 +35,8 @@ this.Connector = (function(global, undefined) {
 		var ty = tp.y;
 
 		this.drawLine(sx,sy,tx,ty);
-		this.drawStartPoint(sx,sy);
-		this.drawEndPoint(tx,ty);
+		this.drawSourcePoint(sx,sy);
+		this.drawTargetPoint(tx,ty,tp.d);
 	};
 
 	/**
@@ -46,8 +47,7 @@ this.Connector = (function(global, undefined) {
 	 */
 	Connector.prototype.getAnchor = function(element, direction) {
 
-		var x = 0;
-		var y = 0;
+		var x,y = 0;
 		var sx = element.attr('x') * 1;
 		var sy = element.attr('y') * 1;
 		var sh = element.attr('height') * 1;
@@ -88,28 +88,32 @@ this.Connector = (function(global, undefined) {
 	 */
 	Connector.prototype.getDirection = function(sx, sy, tx, ty) {
 
-		var x = 0;
-		var y = 0;
+		var x,y = 0;
+		var d = '';
 		var dx = tx - sx;
 		var dy = ty - sy;
 
 		if(dx < 0) {
-			x = -1; // left
+			x = -1;
+			d = 'left';
 		} else if (dx > 0) {
-			x = 1;  // right
+			x = 1;
+			d = 'right';
 		} else if (dx === 0) {
 			x = 0;  // center
 		}
 
 		if(dy < 0) {
-			y = -1; // up
+			y = -1;
+			d += 'up';
 		} else if (dy > 0) {
-			y = 1;  // down
+			y = 1;
+			d += 'down';
 		} else if (dy === 0) {
 			y = 0;  // center
 		}
 
-		return { x : x, y : y };
+		return { x : x, y : y, d: d };
 	};
 
 	/**
@@ -121,14 +125,37 @@ this.Connector = (function(global, undefined) {
 	 */
 	Connector.prototype.drawLine = function(sx, sy, tx, ty) {
 
-		var pathString = '';
-		var direction = this.getDirection(sx,sy,tx,ty);
 
-		if(direction.y === 0) {
-			pathString = 'M' + sx + ',' + sy + ' L' + tx + ',' + ty;
-		} else if (direction.y === 1) {
+		var pathString = '';
+		var connectionDirection = this.getDirection(sx,sy,tx,ty);
+		var sourcePointDirection = this.sourcePoint.d;
+		var targetPointDirection = this.targetPoint.d;
+		var padding = 30;
+
+		pathString = 'M' + sx + ',' + sy;
+
+		// change direction and walk around the source element
+		if(connectionDirection.d.indexOf(sourcePointDirection) === -1) {
+
+			pathString += 'L' + (sx-padding) + ',' + ty;
+			pathString += 'L' + (sx-padding) + ',' + (ty+50+padding);
+					
+			// should we walk around the target element?
+			if(connectionDirection.d.indexOf(targetPointDirection) !== -1) {
+				pathString += 'L' + (tx+padding) + ',' + (ty+50+padding);
+				pathString += 'L' + (tx+padding) + ',' + ty;
+			} else {
+				pathString += 'L' + (sx+100+padding) + ',' + (ty+50+padding);
+				pathString += 'L' + (sx+100+padding) + ',' + (ty);
+			}
+
+			pathString += 'L' + tx + ',' + ty;
+		}
+
+		if(connectionDirection.y === 0) {
+			pathString += 'L' + tx + ',' + ty;
+		} else if (connectionDirection.y === 1) {
 			var dx = tx - sx;
-			pathString = 'M' + sx + ',' + sy;
 			pathString += 'L' + (sx + (dx/2)) + ',' + sy;
 			pathString += 'L' + (sx + (dx/2)) + ',' + ty;
 			pathString += 'L' + tx + ',' + ty;
@@ -136,6 +163,7 @@ this.Connector = (function(global, undefined) {
 
 		this.paper.path(pathString).attr({
 			fill: '#FFF',
+			fillOpacity : 0,
 			stroke: '#000',
 			strokeWidth: 1
 		});
@@ -146,7 +174,7 @@ this.Connector = (function(global, undefined) {
 	 * @param {number} sx - Point X Coordinate.
 	 * @param {number} sy - Point Y Coordinate.
 	 */
-	Connector.prototype.drawStartPoint = function(sx, sy) {
+	Connector.prototype.drawSourcePoint = function(sx, sy) {
 
 		var radius = 4;
 
@@ -158,14 +186,32 @@ this.Connector = (function(global, undefined) {
 	 * @param {number} tx - Point X Coordinate.
 	 * @param {number} ty - Point Y Coordinate.
 	 */
-	Connector.prototype.drawEndPoint = function(tx, ty) {
-
+	Connector.prototype.drawTargetPoint = function(tx, ty, direction) {
+		var arrow, a;
 		var p = 'M' + tx + ',' + ty;
 			p += 'L' + (tx-10) + ',' + (ty+5);
 			p += 'L' + (tx-10) + ',' + (ty-5);
 			p += 'L' + tx + ',' + ty;
+			arrow = this.paper.path(p);
 
-		this.paper.path(p);
+		switch (direction) {
+			case 'right':
+				a = 180;
+			break;
+			case 'up':
+				a = 90;
+			break;
+			case 'down':
+				a = 270;
+			break;
+			case 'left':
+				a = 0;
+			break;
+			default:
+				a = 0;
+		}
+
+		arrow.transform('rotate(' + a + ',' + tx + ',' + ty + ')');
 	};
 
 	return Connector;
