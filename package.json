@@ -9,5 +9,8 @@
     "grunt-contrib-jasmine": "~0.5.2",
     "grunt-template-jasmine-istanbul": "~0.2.5",
     "grunt-jsdoc": "~0.5.1"
-  }
+  },
+  "scripts": {
+    "test": "grunt jasmine"
+  },
 }
