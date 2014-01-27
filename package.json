@@ -12,5 +12,5 @@
   },
   "scripts": {
     "test": "grunt jasmine"
-  },
+  }
 }
