@@ -66,7 +66,17 @@
     
     <div class="description">
         <p>
-        Represents a Connector.
+        <p>Connector - Simple Manhattan Routing with SVG.</p>
+<p><img src="http://netzzwerg.github.io/manhattan-routing/images/manhattan-routing-small.png" alt=""></p>
+<pre><code class="lang-js">var paper = new Snap(800,600);</p><p>var boxA = paper.rect(50, 50, 100, 100, 2).attr({
+    fill: &quot;#FFF&quot;,
+    stroke: &quot;#000&quot;,
+    strokeWidth: 1
+});</p><p>var boxB = paper.rect(250, 250, 100, 100, 2).attr({
+    fill: &quot;#FFF&quot;,
+    stroke: &quot;#000&quot;,
+    strokeWidth: 1
+});</p><p>var ab = new Connector(paper, boxA, 'left', boxB, 'left');</code></pre>
         </p>
     </div>
     
@@ -117,7 +127,7 @@
 
             
 
-            <td class="description last">A Snap Instance.</td>
+            <td class="description last"><p>A Snap Instance.</p></td>
         </tr>
 
 	
@@ -140,7 +150,7 @@
 
             
 
-            <td class="description last">Source Point (Snap) Element.</td>
+            <td class="description last"><p>Source Point (Snap) Element.</p></td>
         </tr>
 
 	
@@ -163,7 +173,7 @@
 
             
 
-            <td class="description last">Source Point direction.</td>
+            <td class="description last"><p>Source Point direction.</p></td>
         </tr>
 
 	
@@ -186,7 +196,7 @@
 
             
 
-            <td class="description last">Target Point (Snap) Element.</td>
+            <td class="description last"><p>Target Point (Snap) Element.</p></td>
         </tr>
 
 	
@@ -209,7 +219,7 @@
 
             
 
-            <td class="description last">Target Point direction.</td>
+            <td class="description last"><p>Target Point direction.</p></td>
         </tr>
 
 	
@@ -332,7 +342,7 @@
 
             
 
-            <td class="description last">Source Point (Snap) Element.</td>
+            <td class="description last"><p>Source Point (Snap) Element.</p></td>
         </tr>
 
 	
@@ -355,139 +365,7 @@
 
             
 
-            <td class="description last">Target Point (Snap) Element.</td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="drawEndPoint">drawEndPoint<span class="signature">(tx, ty)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-bordered table-condensed">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name">tx</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Point X Coordinate.</td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name">ty</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Point Y Coordinate.</td>
+            <td class="description last"><p>Target Point (Snap) Element.</p></td>
         </tr>
 
 	
@@ -596,7 +474,7 @@
 
             
 
-            <td class="description last">Source Point X Coordinate.</td>
+            <td class="description last"><p>Source Point X Coordinate.</p></td>
         </tr>
 
 	
@@ -619,7 +497,7 @@
 
             
 
-            <td class="description last">Source Point Y Coordinate.</td>
+            <td class="description last"><p>Source Point Y Coordinate.</p></td>
         </tr>
 
 	
@@ -642,7 +520,7 @@
 
             
 
-            <td class="description last">Target Point X Coordinate.</td>
+            <td class="description last"><p>Target Point X Coordinate.</p></td>
         </tr>
 
 	
@@ -665,7 +543,7 @@
 
             
 
-            <td class="description last">Target Point Y Coordinate.</td>
+            <td class="description last"><p>Target Point Y Coordinate.</p></td>
         </tr>
 
 	
@@ -720,7 +598,7 @@
         
             
 <dt>
-    <h4 class="name" id="drawStartPoint">drawStartPoint<span class="signature">(sx, sy)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="drawSourcePoint">drawSourcePoint<span class="signature">(sx, sy)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -774,7 +652,7 @@
 
             
 
-            <td class="description last">Point X Coordinate.</td>
+            <td class="description last"><p>Point X Coordinate.</p></td>
         </tr>
 
 	
@@ -797,7 +675,139 @@
 
             
 
-            <td class="description last">Point Y Coordinate.</td>
+            <td class="description last"><p>Point Y Coordinate.</p></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drawTargetPoint">drawTargetPoint<span class="signature">(tx, ty)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-bordered table-condensed">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name">tx</td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Point X Coordinate.</p></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name">ty</td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Point Y Coordinate.</p></td>
         </tr>
 
 	
@@ -906,7 +916,7 @@
 
             
 
-            <td class="description last">(Snap) Element</td>
+            <td class="description last"><p>(Snap) Element</p></td>
         </tr>
 
 	
@@ -929,7 +939,7 @@
 
             
 
-            <td class="description last">Anchor Direction (up, right, down, left)</td>
+            <td class="description last"><p>Anchor Direction (up, right, down, left)</p></td>
         </tr>
 
 	
@@ -1052,7 +1062,7 @@
 
             
 
-            <td class="description last">Source Point X Coordinate.</td>
+            <td class="description last"><p>Source Point X Coordinate.</p></td>
         </tr>
 
 	
@@ -1075,7 +1085,7 @@
 
             
 
-            <td class="description last">Source Point Y Coordinate.</td>
+            <td class="description last"><p>Source Point Y Coordinate.</p></td>
         </tr>
 
 	
@@ -1098,7 +1108,7 @@
 
             
 
-            <td class="description last">Target Point X Coordinate.</td>
+            <td class="description last"><p>Target Point X Coordinate.</p></td>
         </tr>
 
 	
@@ -1121,7 +1131,7 @@
 
             
 
-            <td class="description last">Target Point Y Coordinate.</td>
+            <td class="description last"><p>Target Point Y Coordinate.</p></td>
         </tr>
 
 	
@@ -1206,7 +1216,7 @@
         <br clear="both">
 
       <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Jan 27 2014 18:37:42 GMT+0100 (MEZ)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Jan 27 2014 19:42:44 GMT+0100 (MEZ)
         <br>
       </footer>
       <script> prettyPrint(); </script>

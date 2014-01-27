@@ -25,6 +25,7 @@ module.exports = function(grunt) {
       dist : {
         src: 'src/**/*.js',
         options: {
+          config: 'jsdoc.json',
           destination: 'doc',
           template: 'doc/templates/jsdoc3-bootstrap'
         }
