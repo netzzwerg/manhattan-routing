@@ -21,6 +21,16 @@ module.exports = function(grunt) {
       }
     },
 
+    jsdoc : {
+      dist : {
+        src: 'src/**/*.js',
+        options: {
+          destination: 'doc',
+          template: 'doc/templates/jsdoc3-bootstrap'
+        }
+      }
+    },
+
     watch: {
       reload: {
         files: [ 'main.js' , 'index.html' ],
@@ -31,7 +41,7 @@ module.exports = function(grunt) {
       },
       unittest: {
         files: 'src/**/*.js',
-        tasks: ['jasmine'] // Add more tasks here.
+        tasks: ['jasmine','jsdoc'] // Add more tasks here.
       }
     },
 
@@ -56,6 +66,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   // Default task.
   grunt.registerTask('default', 'server');

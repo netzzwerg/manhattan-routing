@@ -7,6 +7,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "connect-livereload": "~0.3.2",
     "grunt-contrib-jasmine": "~0.5.2",
-    "grunt-template-jasmine-istanbul": "~0.2.5"
+    "grunt-template-jasmine-istanbul": "~0.2.5",
+    "grunt-jsdoc": "~0.5.1"
   }
 }
