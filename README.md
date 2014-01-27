@@ -56,6 +56,23 @@ Layout:
     |-- spec         # unit test with jasmine
     |-- reports      # code coverage with istanbul
     `-- doc          # documentation with jsdoc
+    
+Running the Unit Tests
+--------------------------------------
+
+Make sure you have the necessary dependencies:
+
+```bash
+npm install
+```
+
+Start `grunt test` or `grunt watch:unittest` to auto-build as you work.
+
+For single run use this:
+```bash
+grunt jasmine
+```
+
 
 License
 -------
