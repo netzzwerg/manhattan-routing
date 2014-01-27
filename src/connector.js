@@ -5,8 +5,8 @@ this.Connector = (function(global, undefined) {
 	 * Connector - Simple Manhattan Routing with SVG.
 	 *
 	 * 
-	 * ![](http://netzzwerg.github.io/manhattan-routing/images/manhattan-routing-small.png)
-	 *
+	 * ![](http://netzzwerg.github.io/manhattan-routing/images/routing-1.svg)
+	 * 
 	 * ```js
 	 * var paper = new Snap(800,600);
 	 * 
@@ -15,14 +15,34 @@ this.Connector = (function(global, undefined) {
 	 *     stroke: "#000",
 	 *     strokeWidth: 1
 	 * });
-	 *
-	 * var boxB = paper.rect(250, 250, 100, 100, 2).attr({
+	 * 
+	 * var boxB = paper.rect(250, 50, 100, 100, 2).attr({
 	 *     fill: "#FFF",
 	 *     stroke: "#000",
 	 *     strokeWidth: 1
 	 * });
 	 * 
-	 * var ab = new Connector(paper, boxA, 'left', boxB, 'left');
+	 * var ab = new Connector(paper, boxA, 'right', boxB, 'left');
+	 * ```
+	 * 
+	 * ![](http://netzzwerg.github.io/manhattan-routing/images/routing-2.svg)
+	 * 
+	 * ```js
+	 * var paper = new Snap(800,600);
+	 * 
+	 * var boxC = paper.rect(50, 250, 100, 100, 2).attr({
+	 *     fill: "#FFF",
+	 *     stroke: "#000",
+	 *     strokeWidth: 1
+	 * });
+	 * 
+	 * var boxD = paper.rect(250, 350, 100, 100, 2).attr({
+	 *     fill: "#FFF",
+	 *     stroke: "#000",
+	 *     strokeWidth: 1
+	 * });
+	 * 
+	 * var cd = new Connector(paper, boxC, 'left', boxD, 'left');
 	 * ```
 	 * 
 	 * @global
